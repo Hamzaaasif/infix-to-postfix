@@ -3,10 +3,11 @@ using namespace std;
 class stack
 {
   public:
-  void push(int val,stack **top)
+  void push(char val,stack **top)
   {
     stack *ptr=new stack;
-    ptr->value=val;
+    ptr->value=val; 
+        
     if(*top==NULL)
     {
       ptr->next=NULL;
@@ -19,34 +20,62 @@ class stack
     }
   }
 
-  void pop(stack **top)
+  char pop(stack **top)
   {
     if(*top==NULL)
     {
-      cout<<"Stack Underflow!!"<<endl;
+      return 'a';
     }
     else
     {
       stack *curr=*top;
       *top=curr->next;
-      cout<<curr->value<<endl;
+      char temp=curr->value;
       curr=NULL;
       delete[]curr;
+      return temp;
     }
   }
-  void peak(stack *top)
+  char peak(stack *top)
   {
     if(top==NULL)
     {
-      cout<<"Stack Underflow!!"<<endl;
+      return 'a';
     }
     else
     {
-      cout<<top->value<<endl;
+      return top->value;
     }
   }
 
+int priority(char operate)
+{
+  if(operate=='|')
+  {
+    return 1;
+  }
+  else if(operate=='&')
+  {
+    return 2;
+  }
+  else if(operate=='<' || operate=='>' || operate=='~' || operate=='=')
+  {
+    return 3;
+  }
+  else if(operate=='+' || operate=='-')
+  {
+    return 4;
+  }
+  else if(operate=='*' || operate=='/')
+  {
+    return 5;
+  }
+  else
+  {
+    return 0;
+  }
+}
   private:
-  int value;
+  char value;
   stack *next;
 };
